@@ -75,7 +75,7 @@ def dice_loss(y_true, y_pred, smooth=1):
 
 def train_unet(train_gen, train_step_count, valid_gen, valid_step_count, crop_size, img_c, lr=1e-4, epochs=30, save_path="airbus_ships_balanced-{epoch:02d}-{val_loss:.2f}.hdf5"):
     train_model = build_unet(crop_size, img_c)
-    train_model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=lr), loss=dice_loss, metrics=[MeanIoU(num_classes=2)])
+    train_model.compile(optimizer=tf.keras.optimizers.SGD((learning_rate=lr), loss=dice_loss, metrics=[MeanIoU(num_classes=2)])
     
     train_checkpoint = tf.keras.callbacks.ModelCheckpoint(save_path, verbose=1, monitor='val_loss', save_best_only=True, mode='min')
     train_early_stopping = tf.keras.callbacks.EarlyStopping(patience=5, monitor='val_loss', min_delta=0.01)

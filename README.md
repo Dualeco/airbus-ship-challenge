@@ -93,3 +93,8 @@ Training with learning rate exponentially growing from 1e-5 to 10 can be useful 
 ![enter image description here](https://i.ibb.co/GTkQSTd/image.png)
 #### Training-validation split
 Training/validation split in this work is 0.9 / 0.1 . Validation set DataFrame is saved to `validation.csv`  to be later used in `inference.py`
+
+### Summary
+The best model so fas has shown `loss: 0.3607 - mean_io_u_5: 0.7384` on training set and `val_loss: 0.3593 - val_mean_io_u_5: 0.7451` on validation dataset in 14 epochs with Adam optimiser and lr=8e-4
+
+To test the outputs of the model yourself, please download test data in `test_v2`, `build` and `run` the Docker image and run in console `python3 -m inference`. To have output as a dataframe instead of image masks, please change the `encodings` value in inference.py before running Docker.
