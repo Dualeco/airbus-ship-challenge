@@ -5,8 +5,8 @@ Hi! My name is Pavlo and this is my solution for the ship semantic segmentation 
 ## Code
 This repo contains the following files:
 - `requirements.txt`
-- `unet-kaggle.ipynb` - EDA, data manipulations, and training results are here.
-- `model.py ` - resources for model building and training. It is used in `unet-kaggle.ipynb` to train the model.
+- `airbus-ships.ipynb` - EDA, data manipulations, and training results are here.
+- `model.py ` - resources for model building and training. It is used in `airbus-ships.ipynb` to train the model.
 - `inference.py` - here is where the model is tested. It alsocontains a function that can encode a solution DataFrame. There weren't strict requirements on this file, so to show some results, I predict some values on the validation set and calculate `IoU` and `Dice Loss` on the results. `N` value can be tweaked to control the sample quantity.
 - `image_utils.py` - functions to random crop and augment images. They are probably suboptimal, but in the small timeframe of the work, some things were easier to write.
 - `lrfind.py`- my implementation of plotting a learning_rate/loss graph
