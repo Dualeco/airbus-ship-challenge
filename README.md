@@ -2,6 +2,17 @@
 
 Hi! My name is Pavlo and this is my solution for the ship semantic segmentation problem.
 
+## Code
+This repo contains the following files:
+- `requirements.txt`
+- `unet-kaggle.ipynb` - EDA, data manipulations, and training results are here.
+- `model.py ` - resources for model building and training. It is used in `unet-kaggle.ipynb` to train the model.
+- `inference.py` - here is where the model is tested. It alsocontains a function that can encode a solution DataFrame. There weren't strict requirements on this file, so to show some results, I predict some values on the validation set and calculate `IoU` and `Dice Loss` on the results. `N` value can be tweaked to control the sample quantity.
+- `image_utils.py` - functions to random crop and augment images. They are probably suboptimal, but in the small timeframe of the work, some things were easier to write.
+- `lrfind.py`- my implementation of plotting a learning_rate/loss graph
+- `rle.py` - utils for decoding rle-masks
+- `callbacks.py` - code for custom learning rate and loss trackers
+
 ## EDA
 The dataset contains 768x768 images of ships from above. Some images don't have any ships in them and others contain from 1 to several ships.
 
@@ -64,5 +75,7 @@ For the training metric I chose `tensorflow.keras.metrics.MeanIoU`.
 
 ### Training
 #### Learning rate selection
-Training with learning rate exponentially growing from 1e-5 to 10 result in the following data. it shows that the sharpest fall of loss is observed when learning rate is around 1e-4. It means that this value would be an optimal learning rate for training.
+Training with learning rate exponentially growing from 1e-5 to 10 can be useful to plot a lr/loss graph and select an optimal lr where the loss drops the fastest.
 ![enter image description here](https://i.ibb.co/GTkQSTd/image.png)
+#### Training-validation split
+Training/validation split in this work is 0.9 / 0.1 . Validation set DataFrame is saved to `validation.csv`  to be later used in `inference.py`
