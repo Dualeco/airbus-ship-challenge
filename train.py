@@ -1,6 +1,8 @@
 from img_utils import create_aug_gen, balanced_crop_gen    
 import model
 import pandas as pd
+import warnings
+warnings.filterwarnings("ignore")
 
 CROP_SIZE = 256
 IMG_C = 3

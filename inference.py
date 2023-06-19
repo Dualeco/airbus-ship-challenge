@@ -9,6 +9,8 @@ import numpy as np
 from tensorflow.keras.metrics import MeanIoU
 from joblib import Parallel, delayed
 import shutil
+import warnings
+warnings.filterwarnings("ignore")
 
 MODEL = 'airbus_ships_final-14-0.36.hdf5' 
 

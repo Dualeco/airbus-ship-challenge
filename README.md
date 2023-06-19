@@ -2,11 +2,21 @@
 
 Hi! My name is Pavlo and this is my solution for the ship semantic segmentation problem.
 
-Before launching this code, you should download the dataset from https://www.kaggle.com/competitions/airbus-ship-detection/data and unzip it into this directory. The corresponding code can be found in the notebook
+## Docker
+
+To get started, please run the Jupyter Notebook from the docker image. There you can use Python notebooks and terminal with all packages pre-installed. Run in terminal in this folder:
+
+`docker build . -t notebook`
+`docker run -it --rm --name notebook -p 8888:8888 notebook`
+
+Make sure you have `docker` installed and port 8888 isn't occupied.
+
+Before interacting with this code, you should download the dataset from https://www.kaggle.com/competitions/airbus-ship-detection/data and unzip it into this directory. The corresponding code can be found in the notebook
 
 ## Code
 This repo contains the following files:
 - `requirements.txt`
+- `download_data.ipynb` - Code and cli commands to download data (requires kaggle token)
 - `airbus-ships.ipynb` - EDA, data manipulations, and training results are here.
 - `train.py` - trains the model on the dataset that was loaded in advance as described above. You can either use the notebook or this file.
 - `model.py ` - resources for model building and training. It is used in `airbus-ships.ipynb` to train the model.
