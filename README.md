@@ -7,6 +7,7 @@ Hi! My name is Pavlo and this is my solution for the ship semantic segmentation 
 To get started, please run the Jupyter Notebook from the docker image. There you can use Python notebooks and terminal with all packages pre-installed. Run in terminal in this folder:
 
 `docker build . -t notebook`
+
 `docker run -it --rm --name notebook -p 8888:8888 notebook`
 
 Make sure you have `docker` installed and port 8888 isn't occupied.
