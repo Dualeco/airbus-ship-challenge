@@ -10,7 +10,7 @@ This repo contains the following files:
 - `airbus-ships.ipynb` - EDA, data manipulations, and training results are here.
 - `train.py` - trains the model on the dataset that was loaded in advance as described above. You can either use the notebook or this file.
 - `model.py ` - resources for model building and training. It is used in `airbus-ships.ipynb` to train the model.
-- `inference.py` - here is where the model is tested. It alsocontains a function that can encode a solution DataFrame. There weren't strict requirements on this file, so to show some results, I predict some values on the validation set and calculate `IoU` and `Dice Loss` on the results. `N` value can be tweaked to control the sample quantity.
+- `inference.py` - you can choose whether it makes as images or as encoded masks. Before running, make sure you have data in `./test_v2`
 - `image_utils.py` - functions to random crop and augment images. They are probably suboptimal, but in the small timeframe of the work, some things were easier to write.
 - `lrfind.py`- my implementation of plotting a learning_rate/loss graph
 - `rle.py` - utils for decoding rle-masks
