@@ -2,6 +2,10 @@
 
 Hi! My name is Pavlo and this is my solution for the ship semantic segmentation problem.
 
+## Newest improvements and current best score:
+
+The addition of Sobel XY filter has improved the IoU score to > 0.79
+
 ## Docker
 
 To get started, please run the Jupyter Notebook from the docker image. There you can use Python notebooks and terminal with all packages pre-installed. Run in terminal in this folder:

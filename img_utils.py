@@ -1,9 +1,30 @@
 import numpy as np
 import os
 import matplotlib.pyplot as plt
+import tensorflow as tf
+import tensorflow_addons as tfa
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from skimage.io import imread
 import rle
+import cv2
+
+
+def sobel(img):
+    img=cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img_blur = cv2.GaussianBlur(img,(15,15), sigmaX=0, sigmaY=0) 
+    sobelxy = cv2.Sobel(src=img_blur, ddepth=cv2.CV_64F, dx=1, dy=1, ksize=5)[:,:, np.newaxis]
+    print(sobelxy.shape)
+    return sobelxy / 255
+
+def sobel_tf(t):
+    t = tf.image.rgb_to_grayscale(t)
+    #t = tfa.image.gaussian_filter2d(t, (15, 15), (0, 0))
+    t = tf.image.sobel_edges(t)
+    tx = t[:,:,:,:,0]
+    ty = t[:,:,:,:,1]
+    t = tf.math.add(tx, ty)
+    print(tf.reduce_max(t))
+    return t
 
 # Makes vaguely balanced random crop
 def balanced_crop_gen(df, train_folder, batch_size, seed, img_size, crop_size, debug = False):
@@ -75,7 +96,7 @@ def balanced_crop_gen(df, train_folder, batch_size, seed, img_size, crop_size, d
                 
                 assert out_rgb_a.shape == (batch_size, crop_size, crop_size, 3)
                 assert out_mask_a.shape == (batch_size, crop_size, crop_size, 1)
-                
+                """
                 if (debug):
                     print("Before Augmentation")
                     
@@ -91,7 +112,7 @@ def balanced_crop_gen(df, train_folder, batch_size, seed, img_size, crop_size, d
                             axarr[2 * j + 1].axison = False  
                         
                     plt.show()
-                    
+                """
                 yield out_rgb_a, out_mask_a
                 
                 rand_x = np.random.randint(0, img_size - crop_size, size=size)
@@ -113,8 +134,16 @@ dg_args = dict(featurewise_center = False,
                   fill_mode = 'constant',
                   data_format = 'channels_last')
 
+x_dg_args = dict(featurewise_center = False, 
+                  samplewise_center = False,
+                  zoom_range = [0.95, 0.95],
+                  shear_range=3,
+                  horizontal_flip = True, 
+                  vertical_flip = True,
+                  fill_mode = 'constant',
+                  data_format = 'channels_last')
 
-image_gen = ImageDataGenerator(**dg_args)
+image_gen = ImageDataGenerator(**x_dg_args)
 label_gen = ImageDataGenerator(**dg_args)
         
         
@@ -153,4 +182,4 @@ def create_aug_gen(in_gen, seed, debug=False):
                 
                 plt.show()
         
-        yield x, y  
+        yield x, y

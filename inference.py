@@ -2,7 +2,7 @@ import pandas as pd
 import rle
 import tensorflow as tf
 from keras.models import load_model
-from model import dice_loss
+from model import log_cosh_dice_loss
 import os
 from skimage.io import imread, imsave
 import numpy as np
@@ -12,7 +12,7 @@ import shutil
 import warnings
 warnings.filterwarnings("ignore")
 
-MODEL = 'airbus_ships_final-14-0.36.hdf5' 
+MODEL = 'airbus_ships_iou_score-9+04-0.79.hdf5' 
 
 def predict_enc(img_id, model):
     rgb_path = os.path.join("./test_v2", img_id)
@@ -45,7 +45,7 @@ def predict_mask(img_id, model):
 
 def build_submission(encodings=True):
     # Select any model
-    model = load_model(MODEL, {'dice_loss': dice_loss})
+    model = load_model(MODEL, {'log_cosh_dice_loss': log_cosh_dice_loss})
     
     import os
     ids = [f for f in os.listdir("./test_v2") if not f.startswith('.')][:300]
